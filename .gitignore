@@ -22,3 +22,5 @@ tmp
 .Ds_Store
 ```
 new.go
+
+.env
