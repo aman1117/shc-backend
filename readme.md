@@ -23,5 +23,5 @@
 - [ ] tests?
 
 # My doubts
-- [ x ] Not know anything about docker
+- [x] Not know anything about docker
 - [ ] what is .air.toml? you can ignore it.
