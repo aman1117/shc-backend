@@ -8,11 +8,13 @@ import (
 	"strings"
 )
 
+// why we are using this struct?
 type smtpServer struct {
 	host string
 	port string
 }
 
+// why we are using this function?
 func (s *smtpServer) Address() string {
 	return s.host + ":" + s.port
 }
@@ -24,6 +26,7 @@ type EmailService struct {
 func NewEmailService() *EmailService {
 	return &EmailService{
 		smtpServer: &smtpServer{
+			// why we are using this host and port?
 			host: "smtp.gmail.com", port: "587",
 		},
 	}
@@ -36,17 +39,21 @@ func (es *EmailService) SendEmail(
 ) error {
 	from := "ajaysharma.13122000@gmail.com"
 	password := os.Getenv("GOOGLE_APP_PASSWORD")
+
+	//what is this below line? what is plain auth?
 	auth := smtp.PlainAuth("shc-backend", from, password, es.smtpServer.host)
 
 	// Create a new template
+	//why we doing this?
 	tmpl := template.New("emailTemplate")
 
 	// Parse the HTML email template
+	//why we use backticks in go?
 	templateString := `
 		<html>
 			<body>
-				<h1>{{.Subject}}</h1>
-				<p>{{.Body}}</p>
+			<h2>{{.Subject}}</h2>
+			<p>{{.Body}}</p>
 			</body>
 		</html>
 	`
@@ -65,6 +72,7 @@ func (es *EmailService) SendEmail(
 	}
 
 	// Render the template into a buffer
+	// what is buffer?
 	buffer := new(bytes.Buffer)
 	err = tmpl.Execute(buffer, data)
 	if err != nil {

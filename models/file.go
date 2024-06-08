@@ -24,7 +24,7 @@ type File struct {
 	// what is mime type? A MIME type (Multipurpose Internet Mail Extensions type) is a standard that indicates the nature and format of a document, file, or assortment of bytes.
 	MimeType  string `gorm:"size:32;not null;" json:"mime_type"`
 	Extension string `gorm:"size:32;not null;" json:"extension"`
-	// what is r2path?
+	// what is r2 path?
 	R2Path        string    `gorm:"size:255;not null;" json:"r2_path"`
 	ViewCount     uint      `gorm:"not null;default:0;" json:"read_count"`
 	DownloadCount uint      `gorm:"not null;default:0;" json:"download_count"`

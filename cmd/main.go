@@ -19,21 +19,27 @@ import (
 func main() {
 	println("Starting server")
 	println(os.Getenv("PORT"))
+
+	// ND what is the meaning of starting a new service does it start a new service for each user?
 	service := services.NewAppService()
 
+	//iska mtlb h ki fiber k config me JSONEncoder aur JSONDecoder me json.Marshal aur json.Unmarshal use honge???
 	app := fiber.New(fiber.Config{
 		JSONEncoder: json.Marshal,
 		JSONDecoder: json.Unmarshal,
 	})
 
+	// ND what is this line doing?
 	app.Use(logger.New())
 
-	// for rate limiting
+	// i don't know what is redis
+	// ND for rate limiting
 	// TODO: check if it interferes with other keys
 	storage := redis.New((redis.Config{
 		URL: os.Getenv("REDIS_URL"),
 	}))
 
+	// ND not understood below function
 	app.Use(limiter.New(limiter.Config{
 		Max:        15,
 		Expiration: 30 * time.Second,
@@ -49,10 +55,12 @@ func main() {
 	}))
 
 	// TODO: Verify if it helps
+	// what is this?
 	app.Use(compress.New(compress.Config{
 		Level: compress.LevelBestCompression,
 	}))
 
+	// not understood below function
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "http://localhost, http://localhost:3000, https://shc-app.vercel.app, https://shc.ajaysharma.dev, https://ajaysharma.dev",
 		AllowHeaders: "Origin, Content-Type, Accept",
@@ -60,6 +68,8 @@ func main() {
 
 	setupRoutes(app, service)
 
+	// Prefork creates multiple independent processes, each handling a single connection, while the child model uses a single process to handle multiple connections concurrently.
+	//not understood below function
 	if !fiber.IsChild() {
 		runCronJobs(service)
 	}

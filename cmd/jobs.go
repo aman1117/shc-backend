@@ -6,6 +6,7 @@ import (
 	"github.com/aj-2000/shc-backend/services"
 )
 
+// can't understood how this function is working
 func runCronJobs(as *services.AppService) {
 	as.CronService.AddFunc("@midnight", func() {
 		print("Deactivating all expired subscriptions")
@@ -18,6 +19,8 @@ func runCronJobs(as *services.AppService) {
 		if err != nil {
 			fmt.Println(err)
 		}
+
+		//what is non-uploaded files?
 		print("Deleting all non-uploaded files")
 		err = as.FileService.DeleteAllNonUploadedFiles()
 		if err != nil {

@@ -12,6 +12,8 @@ func GenerateOtp(c fiber.Ctx, as *services.AppService) error {
 	// TODO: is it right to create a new user here?
 	user := new(models.User)
 
+	//how to read body of request?
+	// read about c.Bind().Body()
 	if err := c.Bind().Body(user); err != nil {
 		return err
 	}

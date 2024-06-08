@@ -212,6 +212,8 @@ func (a *AuthService) VerifyRefreshToken(token string) (*RefreshTokenClaim, erro
 func (a *AuthService) GenerateOtp(email string) int {
 	min := 100000
 	max := 999999
+
+	// how to generate random number in go?
 	otp := rand.Intn(max-min+1) + min
 
 	a.otpToUserMap[email] = OtpTable{Email: email, Otp: otp}

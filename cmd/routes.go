@@ -13,8 +13,14 @@ import (
 func setupRoutes(app *fiber.App, as *services.AppService) {
 	app.Get("/", handlers.Home)
 
+	//read group of fiber ✅
+	//  v1 := api.Group("/v1", func(c *fiber.Ctx) error { // middleware for /api/v1
+	//    c.Set("Version", "v1")
+	//    return c.Next()
+	//  }) here what exactly is c.Next() have i implemented it myself???
 	auth := app.Group("auth")
 
+	//what is fiber.Ctx? ✅
 	auth.Post("otp", func(c fiber.Ctx) error {
 		return ah.GenerateOtp(c, as)
 	})
