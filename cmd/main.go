@@ -1,3 +1,4 @@
+// ND redis part
 package main
 
 import (
@@ -33,13 +34,12 @@ func main() {
 	app.Use(logger.New())
 
 	// i don't know what is redis
-	// ND for rate limiting
 	// TODO: check if it interferes with other keys
 	storage := redis.New((redis.Config{
 		URL: os.Getenv("REDIS_URL"),
 	}))
 
-	// ND not understood below function
+	// ND not understood below function ✅
 	app.Use(limiter.New(limiter.Config{
 		Max:        15,
 		Expiration: 30 * time.Second,
@@ -60,7 +60,7 @@ func main() {
 		Level: compress.LevelBestCompression,
 	}))
 
-	// not understood below function
+	// not understood below function ✅
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "http://localhost, http://localhost:3000, https://shc-app.vercel.app, https://shc.ajaysharma.dev, https://ajaysharma.dev",
 		AllowHeaders: "Origin, Content-Type, Accept",
@@ -69,7 +69,7 @@ func main() {
 	setupRoutes(app, service)
 
 	// Prefork creates multiple independent processes, each handling a single connection, while the child model uses a single process to handle multiple connections concurrently.
-	//not understood below function why we need it?
+	// not understood below function why we need it?
 	if !fiber.IsChild() {
 		runCronJobs(service)
 	}

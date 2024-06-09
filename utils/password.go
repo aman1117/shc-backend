@@ -5,6 +5,7 @@ import (
 )
 
 // why we need GenerateRandomString?
+
 func GenerateRandomString(length int) string {
 	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "!@#$%^&*()_+{}[]:;<>,.?/~`"
 
