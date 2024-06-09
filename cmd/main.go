@@ -29,7 +29,7 @@ func main() {
 		JSONDecoder: json.Unmarshal,
 	})
 
-	// ND what is this line doing?
+	// ND what is this line doing? ✅
 	app.Use(logger.New())
 
 	// i don't know what is redis
@@ -55,7 +55,7 @@ func main() {
 	}))
 
 	// TODO: Verify if it helps
-	// what is this?
+	// what is this? ✅
 	app.Use(compress.New(compress.Config{
 		Level: compress.LevelBestCompression,
 	}))
@@ -69,7 +69,7 @@ func main() {
 	setupRoutes(app, service)
 
 	// Prefork creates multiple independent processes, each handling a single connection, while the child model uses a single process to handle multiple connections concurrently.
-	//not understood below function
+	//not understood below function why we need it?
 	if !fiber.IsChild() {
 		runCronJobs(service)
 	}

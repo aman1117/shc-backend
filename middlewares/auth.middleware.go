@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-// not done below part
+// not done below part read regex
 var SemiPublicRoutes = []*regexp.Regexp{
 	regexp.MustCompile(`/api/files/.*`),
 }
@@ -23,6 +23,7 @@ func AuthMiddleware(c fiber.Ctx, as *services.AppService) error {
 	claim, err := as.AuthService.VerifyAccessToken(accessToken)
 
 	// not done below part
+	// ignore it for now
 	path := c.Path()
 	semiPublic := false
 	for _, route := range SemiPublicRoutes {
@@ -42,6 +43,7 @@ func AuthMiddleware(c fiber.Ctx, as *services.AppService) error {
 	}
 
 	// not done below part
+	// ignore it for now
 	if !semiPublic && err != nil {
 		return c.SendStatus(401)
 	}

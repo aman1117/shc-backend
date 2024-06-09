@@ -1,13 +1,16 @@
 package services
 
+//read docs of cron
 import (
 	"github.com/robfig/cron/v3"
 )
 
+// why we doing this? why there is need of scheduler?
 type CronService struct {
 	Scheduler *cron.Cron
 }
 
+// what is cron.New()?
 func NewCronService() *CronService {
 	return &CronService{
 		Scheduler: cron.New(),
