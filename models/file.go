@@ -31,19 +31,20 @@ type File struct {
 	UserId        uuid.UUID `gorm:"not null;index:idx_user_id_file" json:"user_id"`
 }
 
-// how we are using this function?
+// these are GORM hooks
 func (f *File) AfterCreate(db *gorm.DB) (err error) {
 	if err := db.Model(&User{}).Where("id = ?", f.UserId).Update("file_count", gorm.Expr("file_count + ?", 1)).Error; err != nil {
 		return err
 	}
+
 	return nil
 }
 
-// how we are using this function?
 // TODO: should we decrease the file count when a file is deleted? or permanently deleted?
 func (f *File) AfterDelete(db *gorm.DB) (err error) {
 	if err := db.Model(&User{}).Where("id = ?", f.UserId).Update("file_count", gorm.Expr("file_count - ?", 1)).Error; err != nil {
 		return err
 	}
+
 	return nil
 }

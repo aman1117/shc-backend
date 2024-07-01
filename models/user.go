@@ -21,7 +21,7 @@ type User struct {
 	StripeTransactions []StripeTransaction
 }
 
-// how we are using this function in our code, why we are passing *gorm.DB?
+// it will run when we call it explicitly
 func (u *User) Validate(db *gorm.DB) error {
 	if u.Name == "" {
 		return errors.New("name is required")
@@ -32,5 +32,6 @@ func (u *User) Validate(db *gorm.DB) error {
 	if err := checkmail.ValidateFormat(u.Email); err != nil {
 		return errors.New("invalid email")
 	}
+
 	return nil
 }
