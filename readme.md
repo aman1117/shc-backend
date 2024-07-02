@@ -23,7 +23,7 @@
 - [ ] tests?
 
 # My doubts
-- [x] Not know anything about docker
+- [ ] Not know anything about docker
 - [ ] what is .air.toml? you can ignore it.
 - [ ] what is context in go?
 - [ ] not understood S3 function in file-handlers.
