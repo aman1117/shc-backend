@@ -15,12 +15,14 @@ func RefreshToken(c fiber.Ctx, as *services.AppService) error {
 
 	refreshToken = strings.TrimPrefix(refreshToken, "Bearer ")
 
+	// read it from service
 	claim, err := as.AuthService.VerifyRefreshToken(refreshToken)
 
 	if err != nil {
 		return c.SendStatus(401)
 	}
 
+	// read it from service
 	tokens, err := as.AuthService.GenerateTokens(claim.ID, claim.Name, claim.Email)
 
 	if err != nil {

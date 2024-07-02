@@ -9,17 +9,20 @@ import (
 func GetMe(c fiber.Ctx, as *services.AppService) error {
 	userIdString := c.Request().Header.Peek("user_id")
 
+	// why we need to parse the userIdString?  what is the use of uuid.Parse? ✅
 	userId, err := uuid.Parse(string(userIdString))
 	if err != nil {
 		return err
 	}
 
+	// read it from the service
 	user, err := as.UserService.FindUserById(userId)
 
 	if err != nil {
 		return err
 	}
 
+	// read it from the service
 	subscription, err := as.SubscriptionService.FindSubscriptionByUserId(userId)
 
 	if err != nil {

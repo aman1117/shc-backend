@@ -12,14 +12,14 @@ func GenerateOtp(c fiber.Ctx, as *services.AppService) error {
 	// TODO: is it right to create a new user here?
 	user := new(models.User)
 
-	//how to read body of request?
-	// read about c.Bind().Body()
 	if err := c.Bind().Body(user); err != nil {
 		return err
 	}
 
+	// read it from the service
 	otp := as.AuthService.GenerateOtp(user.Email)
 
+	// read it from the service
 	if err := as.EmailService.SendEmail([]string{user.Email}, "shc-cli OTP", strconv.Itoa(otp)); err != nil {
 		return err
 	}

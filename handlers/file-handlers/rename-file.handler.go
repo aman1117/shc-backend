@@ -6,6 +6,8 @@ import (
 	"github.com/google/uuid"
 )
 
+// why we are using struct here?
+// what is the purpose of this struct?
 type RenameFileDto struct {
 	Name string `json:"name"`
 }
@@ -34,12 +36,14 @@ func RenameFile(c fiber.Ctx, as *services.AppService) error {
 		return err
 	}
 
+	// read it from service
 	f, err := as.FileService.RenameFile(userId, fileId, body.Name)
 
 	if err != nil {
 		return err
 	}
 
+	//why we have to return c.JSON it?
 	return c.JSON(fiber.Map{
 		"id":         f.ID,
 		"r2_path":    f.R2Path,

@@ -24,13 +24,13 @@ func RemoveFile(c fiber.Ctx, as *services.AppService) error {
 	if err != nil {
 		return err
 	}
-
+	// read it from service
 	key, err := as.FileService.DeleteAFile(userId, fileId)
 
 	if err != nil {
 		return err
 	}
-
+	//why we are returning key?
 	return c.JSON(fiber.Map{
 		"key": key,
 	})

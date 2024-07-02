@@ -16,6 +16,7 @@ func IncrementFileDownloadCount(c fiber.Ctx, as *services.AppService) error {
 		})
 	}
 
+	//read it from service
 	if err := as.FileService.IncrementDownloadCount(fileId); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": "Something went wrong",

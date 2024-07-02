@@ -23,6 +23,7 @@ func GetFile(c fiber.Ctx, as *services.AppService) error {
 
 	userId, _ := uuid.Parse(userIdString)
 
+	// read it from service
 	file, err := as.FileService.FindFileById(fileId)
 
 	if err != nil {
@@ -33,14 +34,17 @@ func GetFile(c fiber.Ctx, as *services.AppService) error {
 		return &fiber.Error{Code: fiber.StatusForbidden, Message: "You are not allowed to access this file"}
 	}
 
+	// read it from service
 	err = as.FileService.IncrementViewCount(fileId)
 
 	if err != nil {
 		return err
 	}
 
+	// are we getting the download url from cache? ✅
 	downloadUrl, err := as.RedisService.GetCache("download_url_of_" + file.R2Path)
 
+	// if not, then we are getting it from s3? ✅
 	if err != nil {
 		res, err := as.S3Service.S3PresignClient.PresignGetObject(c.Context(), &s3.GetObjectInput{
 			Bucket: aws.String(as.S3Service.BucketName),
@@ -54,7 +58,6 @@ func GetFile(c fiber.Ctx, as *services.AppService) error {
 			return err
 		}
 	}
-
 	return c.JSON(fiber.Map{
 		"download_url":  downloadUrl,
 		"id":            file.ID,

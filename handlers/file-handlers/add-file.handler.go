@@ -12,15 +12,19 @@ import (
 	"github.com/google/uuid"
 )
 
+// what is the need of this struct?
 type AddFileDto struct {
+	//these tags are called struct tags
 	FileName string `json:"file_name"`
 	FileSize uint   `json:"file_size"`
 	MimeType string `json:"mime_type"`
 }
 
+// does this error return means this function will always return an error?, if not then what is the use of error return?
 func AddFileToDb(c fiber.Ctx, as *services.AppService) error {
 	userIdString := string(c.Request().Header.Peek("user_id"))
 
+	// why do we have to parse it? ✅
 	userId, err := uuid.Parse(userIdString)
 
 	if err != nil {
@@ -28,8 +32,10 @@ func AddFileToDb(c fiber.Ctx, as *services.AppService) error {
 
 	}
 
+	//what is AddFileDto? ✅
 	body := new(AddFileDto)
 
+	//what we are doing here? what is the meaning of binding body? ✅
 	if err := c.Bind().Body(body); err != nil {
 		print("error binding body", err.Error())
 		return err
@@ -37,6 +43,7 @@ func AddFileToDb(c fiber.Ctx, as *services.AppService) error {
 
 	fileSize := body.FileSize
 
+	//read it from service
 	subscription, err := as.SubscriptionService.FindSubscriptionByUserId(userId)
 
 	if err != nil {
@@ -51,9 +58,15 @@ func AddFileToDb(c fiber.Ctx, as *services.AppService) error {
 		return &fiber.Error{Code: fiber.StatusPaymentRequired, Message: "You have exceeded your storage limit"}
 	}
 
+	//what is context?
 	ctx := context.Background()
+
+	//what is aws.String? -> creating a pointer to the string from the string.
+	// how to use strings.Replace? ✅
 	key := aws.String(userId.String() + "/" + uuid.NewString() + "_" + strings.Replace(body.FileName, " ", "_", -1))
 
+	//what is presign?
+	//what is s3.PutObjectInput?
 	res, err := as.S3Service.S3PresignClient.PresignPutObject(ctx, &s3.PutObjectInput{
 		Bucket:        aws.String(as.S3Service.BucketName),
 		Key:           key,
@@ -75,6 +88,7 @@ func AddFileToDb(c fiber.Ctx, as *services.AppService) error {
 		UserId:    userId,
 	}
 
+	// read it from service
 	f, err := as.FileService.CreateFile(&newFile)
 
 	if err != nil {
