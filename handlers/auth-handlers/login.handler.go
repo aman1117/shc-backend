@@ -29,7 +29,7 @@ func VerifyOtpAndGetTokens(c fiber.Ctx, as *services.AppService) error {
 		return &fiber.Error{Code: fiber.StatusBadRequest, Message: "Invalid OTP"}
 	}
 
-	// read it from the service
+	// read it from the service ✅
 	if err = as.AuthService.VerifyOtp(req.Email, otp); err != nil {
 		return &fiber.Error{Code: fiber.StatusUnauthorized, Message: err.Error()}
 	}
@@ -37,7 +37,7 @@ func VerifyOtpAndGetTokens(c fiber.Ctx, as *services.AppService) error {
 	// does this mean we have created a pointer to the user? ✅
 	var user *m.User
 
-	// read it from the service
+	// read it from the service ✅
 	u, err := as.UserService.FindUserByEmail(req.Email)
 
 	// why we are doing this, does it mean we are verifying if user exists or not?
@@ -53,7 +53,7 @@ func VerifyOtpAndGetTokens(c fiber.Ctx, as *services.AppService) error {
 		return err
 	}
 
-	//read it from the service
+	//read it from the service ✅
 	tokens, err := as.AuthService.GenerateTokens(user.ID, user.Name, user.Email)
 
 	if err != nil {

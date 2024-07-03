@@ -34,6 +34,7 @@ func UpdateFileUploadStatus(c fiber.Ctx, as *services.AppService) error {
 		return err
 	}
 
+	// how we get the uploadStatus from the body?
 	file, err := as.FileService.UpdateUploadStatus(userId, fileId, body.UploadStatus)
 
 	if err != nil {

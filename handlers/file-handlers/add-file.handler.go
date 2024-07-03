@@ -20,7 +20,6 @@ type AddFileDto struct {
 	MimeType string `json:"mime_type"`
 }
 
-// does this error return means this function will always return an error?, if not then what is the use of error return?
 func AddFileToDb(c fiber.Ctx, as *services.AppService) error {
 	userIdString := string(c.Request().Header.Peek("user_id"))
 
@@ -43,7 +42,7 @@ func AddFileToDb(c fiber.Ctx, as *services.AppService) error {
 
 	fileSize := body.FileSize
 
-	//read it from service
+	//read it from service ✅
 	subscription, err := as.SubscriptionService.FindSubscriptionByUserId(userId)
 
 	if err != nil {
@@ -88,7 +87,7 @@ func AddFileToDb(c fiber.Ctx, as *services.AppService) error {
 		UserId:    userId,
 	}
 
-	// read it from service
+	// read it from service ✅
 	f, err := as.FileService.CreateFile(&newFile)
 
 	if err != nil {

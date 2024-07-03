@@ -13,14 +13,14 @@ func ListFiles(c fiber.Ctx, as *services.AppService) error {
 
 	userIdString := string(c.Request().Header.Peek("user_id"))
 
-	// what is pageString?
+	// what is pageString?✅
 	pageString := c.Query("page")
-	// what is page?
+	// what is page?✅
 	page, err := strconv.Atoi(pageString)
 	if err != nil || page < 1 {
 		page = 1
 	}
-	// what is limitString?
+	// what is limitString?✅
 	limitString := c.Query("limit")
 	// what is limit?
 	limit, err := strconv.Atoi(limitString)
@@ -28,7 +28,7 @@ func ListFiles(c fiber.Ctx, as *services.AppService) error {
 		limit = 10
 	}
 
-	// what is search?
+	// what is search?✅
 	search := c.Query("search")
 
 	userId, err := uuid.Parse(userIdString)
@@ -36,9 +36,9 @@ func ListFiles(c fiber.Ctx, as *services.AppService) error {
 		return err
 	}
 
-	// what is filePaginationResults?
+	// what is filePaginationResults?✅
 
-	// read it from service
+	// read it from service✅
 	filesPaginationResults, err := as.FileService.FindFilesByUserId(userId, search, page, limit)
 	if err != nil {
 		return err
@@ -75,5 +75,6 @@ func ListFiles(c fiber.Ctx, as *services.AppService) error {
 
 	// what is the meaning of line below?
 	filesPaginationResults.Results = trimmedFiles
+
 	return c.JSON(filesPaginationResults)
 }

@@ -24,8 +24,12 @@
 
 # My doubts
 - [ ] Not know anything about docker
-- [ ] what is .air.toml? you can ignore it.
+- [x] what is .air.toml? you can ignore it.
 - [ ] what is context in go?
 - [ ] not understood S3 function in file-handlers.
 - [ ] read about R2.
-- [ ] not understood list-files handler
+- [x] not understood list-files handler.
+- [ ] read about S3. https://www.youtube.com/watch?v=d8A8JmAImc4&ab_channel=PiyushGarg
+- [ ] read about channel in detail.
+- [ ] JWT in very detail.
+- [ ] read cron docs

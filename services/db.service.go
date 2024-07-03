@@ -14,8 +14,11 @@ type DbService struct {
 	Db *gorm.DB
 }
 
+// why we made this struct?
 type PaginatedResults struct {
-	Results      any   `json:"results"`
+	// what is Results?
+	Results any `json:"results"`
+	// what is TotalResults?
 	TotalResults int64 `json:"total_results"`
 	TotalPages   uint  `json:"total_pages"`
 	CurrentPage  uint  `json:"current_page"`
@@ -26,6 +29,7 @@ type PaginatedResults struct {
 
 // TODO: if we can improve it -> intitutiveness
 func (ds *DbService) Paginated(page int, limit int) *gorm.DB {
+	// what is offset?  i want to know how below line is working
 	offset := (page - 1) * limit
 	return ds.Db.Order("updated_at desc").Offset(offset).Limit(limit)
 }

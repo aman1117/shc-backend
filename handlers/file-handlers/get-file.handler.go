@@ -23,7 +23,7 @@ func GetFile(c fiber.Ctx, as *services.AppService) error {
 
 	userId, _ := uuid.Parse(userIdString)
 
-	// read it from service
+	// read it from service✅
 	file, err := as.FileService.FindFileById(fileId)
 
 	if err != nil {
@@ -34,7 +34,7 @@ func GetFile(c fiber.Ctx, as *services.AppService) error {
 		return &fiber.Error{Code: fiber.StatusForbidden, Message: "You are not allowed to access this file"}
 	}
 
-	// read it from service
+	// read it from service✅
 	err = as.FileService.IncrementViewCount(fileId)
 
 	if err != nil {

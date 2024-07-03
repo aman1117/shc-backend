@@ -90,6 +90,7 @@ func (fs *FileService) FindFilesByUserId(user_id uuid.UUID, search string, page 
 }
 
 func (fs *FileService) CreateFile(file *m.File) (*m.File, error) {
+
 	err := fs.subscriptionService.IncrementWrites(file.UserId, file.Size, true)
 
 	if err != nil {
@@ -115,9 +116,11 @@ func (fs *FileService) DeleteAFile(userId uuid.UUID, fileId uuid.UUID) (string, 
 		return "", err
 	}
 	r2Path := file.R2Path
+	// why we passed file in Delete method? ✅
 	if err := fs.dbService.Db.Delete(&file).Error; err != nil {
 		return "", err
 	}
+	// why we returned r2 path? after deleting the file? -
 	return r2Path, nil
 }
 

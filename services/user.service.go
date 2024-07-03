@@ -45,6 +45,8 @@ func (us *UserService) CreateUser(user *m.User) (*m.User, error) {
 
 func (us *UserService) FindUserByEmail(email string) (*m.User, error) {
 	var user m.User
+
+	// how does this db service work? explain in detail what below code is doing?
 	if err := us.dbService.Db.Where("email = ?", email).First(&user).Error; err != nil {
 		return nil, err
 	}
@@ -53,6 +55,7 @@ func (us *UserService) FindUserByEmail(email string) (*m.User, error) {
 
 func (us *UserService) FindUserById(id uuid.UUID) (*m.User, error) {
 	var user m.User
+	// how it is possible to store the result direclty in user?
 	if err := us.dbService.Db.Preload("Subscription").Where("id = ?", id).First(&user).Error; err != nil {
 		return nil, err
 	}
@@ -60,6 +63,7 @@ func (us *UserService) FindUserById(id uuid.UUID) (*m.User, error) {
 }
 
 func (us *UserService) UpdateAUser(user *m.User) (*m.User, error) {
+
 	// Omit the "Subscription" field while updating
 	if err := us.dbService.Db.Model(&user).Omit("Subscription").Updates(&user).Error; err != nil {
 		return nil, err

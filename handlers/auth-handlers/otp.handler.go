@@ -16,7 +16,7 @@ func GenerateOtp(c fiber.Ctx, as *services.AppService) error {
 		return err
 	}
 
-	// read it from the service
+	// read it from the service ✅
 	otp := as.AuthService.GenerateOtp(user.Email)
 
 	// read it from the service

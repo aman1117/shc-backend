@@ -36,7 +36,7 @@ func RenameFile(c fiber.Ctx, as *services.AppService) error {
 		return err
 	}
 
-	// read it from service
+	// read it from service ✅
 	f, err := as.FileService.RenameFile(userId, fileId, body.Name)
 
 	if err != nil {

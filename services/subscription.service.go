@@ -31,6 +31,7 @@ func (ss *SubscriptionService) FindSubscriptionById(subscriptionId uuid.UUID) (*
 
 func (ss *SubscriptionService) FindSubscriptionByUserId(userId uuid.UUID) (*m.Subscription, error) {
 	var subscription m.Subscription
+	// how this query is working in gorm? ✅
 	if err := ss.dbService.Db.Preload(clause.Associations).Where("user_id = ?", userId).First(&subscription).Error; err != nil {
 		return nil, err
 	}
