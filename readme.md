@@ -35,4 +35,4 @@
 - [ ] read cron docs.
 - [ ] don't know GORM functions in detail.
 - [x] migration
-- [ ] don't know how paginated results work, FindFilesByUserId in file.service.go
+- [x] don't know how paginated results work, FindFilesByUserId in file.service.go
