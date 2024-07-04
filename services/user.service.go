@@ -55,7 +55,6 @@ func (us *UserService) FindUserByEmail(email string) (*m.User, error) {
 
 func (us *UserService) FindUserById(id uuid.UUID) (*m.User, error) {
 	var user m.User
-	// how it is possible to store the result direclty in user?
 	if err := us.dbService.Db.Preload("Subscription").Where("id = ?", id).First(&user).Error; err != nil {
 		return nil, err
 	}

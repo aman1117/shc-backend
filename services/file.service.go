@@ -45,6 +45,7 @@ func (fs *FileService) ToggleIsPublic(fileId uuid.UUID, userId uuid.UUID) (*m.Fi
 	return &file, nil
 }
 
+// what is this function doing?
 func (fs *FileService) FindFilesByUserId(user_id uuid.UUID, search string, page int, limit int) (*PaginatedResults, error) {
 	var files []m.File
 	var totalCount int64

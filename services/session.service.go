@@ -9,6 +9,8 @@ import (
 	"github.com/aj-2000/shc-backend/utils"
 )
 
+// what is session service?
+// why we need dbService?
 type SessionService struct {
 	dbService         *DbService
 	SessionExpiration time.Duration
@@ -64,7 +66,7 @@ func (ss *SessionService) CreateSession(userId uuid.UUID) (session *m.Session, e
 
 func (ss *SessionService) DeleteSession(sessionId uuid.UUID) error {
 
-	// what does ss.dbService.Db denote?
+	// what does ss.dbService.Db denote?✅
 	if err := ss.dbService.Db.Where("id = ?", sessionId).Delete(&m.Session{}).Error; err != nil {
 		return err
 	}
@@ -74,7 +76,7 @@ func (ss *SessionService) DeleteSession(sessionId uuid.UUID) error {
 func (ss *SessionService) FindAllSessions(userId uuid.UUID) ([]m.Session, error) {
 	var sessions []m.Session
 
-	// what does ss.dbService.Db denote?
+	// what does ss.dbService.Db denote?✅
 	err := ss.dbService.Db.Where("user_id = ?", userId).Order("created_at").Find(&sessions).Error
 
 	if err != nil {
