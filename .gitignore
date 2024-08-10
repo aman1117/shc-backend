@@ -21,3 +21,7 @@ tmp
 *.log
 .Ds_Store
 ```
+
+set -a # automatically export all variables
+source .env
+set +a
