@@ -1,0 +1,23 @@
+# TODO
+
+- [ ] bin / permanent delete, handle deleted at
+- [ ] subscription logic inside file service - upload wala remaining
+- [ ] send email using queue?
+- [ ] joins / preload
+- [ ] cleaner associates
+- [ ] ID -> userId and similar naming changes
+- [ ] localise cookie names
+- [ ] library for integration in other websites
+- [ ] support for thirdparty Oauth providers
+- [ ] improve naming conventions wherever needed
+- [ ] use x for headers
+- [ ] clean uint/int etc mess
+- [ ] fix null pointer access in ip
+- [ ] use denormaliaztion on files count
+- [ ] fetching files is too slow
+- [ ] login and signup
+- [ ] more intelligent limiting, may be ignore auth routes?
+- [ ] created at vs updated at
+- [ ] separate nodejs service for highlighted html generation?
+- [ ] track file was reads & writes
+- [ ] tests?
