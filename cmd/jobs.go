@@ -6,6 +6,7 @@ import (
 	"github.com/aj-2000/shc-backend/services"
 )
 
+// below function is a method of SubscriptionService struct ✅
 func runCronJobs(as *services.AppService) {
 	as.CronService.AddFunc("@midnight", func() {
 		print("Deactivating all expired subscriptions")

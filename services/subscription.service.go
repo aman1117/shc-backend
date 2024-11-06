@@ -119,13 +119,21 @@ func (ss *SubscriptionService) ResetSubcriptionLimitsOfAllActiveFreeSubscription
 	return nil
 }
 
+// below function is a method of SubscriptionService struct ✅
 func (ss *SubscriptionService) DeactivateAllExpiredSubscriptions() error {
+
+	// not understood this query
+	// UPDATE Subscription
+	// SET status = 'Inactive'
+	// WHERE end_date < CURRENT_TIMESTAMP;
 	if err := ss.dbService.Db.Model(&m.Subscription{}).
 		Where("end_date < ?", time.Now()).
 		Updates(map[string]any{
 			"status": m.Inactive,
 		}).Error; err != nil {
+
 		return err
 	}
+
 	return nil
 }

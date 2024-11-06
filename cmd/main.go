@@ -32,6 +32,7 @@ func main() {
 		URL: os.Getenv("REDIS_URL"),
 	}))
 
+	// we are storing rate limit data in redis for 30 seconds
 	app.Use(limiter.New(limiter.Config{
 		Max:        15,
 		Expiration: 30 * time.Second,
@@ -58,6 +59,11 @@ func main() {
 
 	setupRoutes(app, service)
 
+	// we do it because it we have so many instances of the app running
+	// and we don't want to run cron jobs on all of them
+	// we only want to run cron jobs on the main instance
+	// so we check if it is a child instance or not
+	// if it is not a child instance, we run the cron jobs ✅
 	if !fiber.IsChild() {
 		runCronJobs(service)
 	}
